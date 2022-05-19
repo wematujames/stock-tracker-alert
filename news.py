@@ -4,10 +4,10 @@ import os
 NEWS_API_KEY = os.environ["NEW_API_KEY"]
 
 class NewsManager():
-    def __init__(self, company_name = "Tesla Inc"): 
+    def __init__(self, company_name = "Tesla Inc") -> None: 
         self.company_name = company_name
     
-    def get_news (self):
+    def get_news (self) -> list:
         params = {
             "q": self.company_name,
             "from":"2022-05-10",

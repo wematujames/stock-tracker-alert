@@ -5,7 +5,7 @@ import os
 AV_API_KEY = os.environ["AV_API_KEY"]
 
 class StockManager ():
-    def __init__(self, company = "TSLA"):
+    def __init__(self, company = "TSLA") -> None:
         self.company = company
         self.stock_price_change =None
         self.getStockPrices()
@@ -16,7 +16,6 @@ class StockManager ():
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
-        
         
         # Get date for yesterday and day before
         yesty_date = str(dt.datetime.now() - dt.timedelta(days=prev_day))[:10]
@@ -32,14 +31,15 @@ class StockManager ():
         else:
             self.stock_price_change = round(((stock_2days_ago - stock_yesterday) / stock_2days_ago) * 100)
         
-    def is_big_difference(self):
-        '''Basically check if the difference between the stock price two ago and yesterday >= 5%'''
+        
+    def is_big_difference(self) -> bool:
+        '''Basically checks if the difference between the stock price two ago and yesterday >= 5%'''
 
         if abs(self.stock_price_change) >= 0:
             return True
         return False
     
-    def is_stock_down (self):
+    def is_stock_down (self) -> bool:
         if self.stock_price_change > 0:
             return False
         return True
